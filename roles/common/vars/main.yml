@@ -1,0 +1,7 @@
+# file: roles/common/vars/main.yml
+---
+common_packages:
+  - epel-release
+  - vim
+  - git
+  - unzip

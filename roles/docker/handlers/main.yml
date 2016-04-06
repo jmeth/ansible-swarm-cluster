@@ -1,0 +1,11 @@
+# file: roles/docker/handlers/main.yml
+---
+# For example,
+#
+# - name: restart ntpd
+#   service: name=ntpd state=restarted
+- name: restart docker socket
+  service: name=docker.socket state=restarted enabled=yes
+
+- name: restart docker service
+  service: name=docker.service state=restarted enabled=yes

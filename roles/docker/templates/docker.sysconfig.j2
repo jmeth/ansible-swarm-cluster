@@ -1,0 +1,2 @@
+DOCKER_OPTS='--exec-opt native.cgroupdriver=cgroupfs'
+DOCKER_NET_OPTS='-H tcp://0.0.0.0:{{docker_port}} --bip={{bridge_ip}}/24'

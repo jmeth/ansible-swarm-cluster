@@ -1,0 +1,12 @@
+# file: site.yml
+---
+- hosts: all
+  roles:
+    - common
+    - docker
+    - consul
+    - swarm
+
+#- hosts: leader
+#  roles:
+#    - registry

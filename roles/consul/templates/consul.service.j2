@@ -1,0 +1,14 @@
+[Unit]
+Description=consul agent
+Requires=network-online.target
+After=network-online.target
+
+[Service]
+Restart=on-failure
+User={{consul_user}}
+ExecStart=/usr/local/bin/consul agent -config-dir={{consul_etc_dir}}/{{consul_role}}
+ExecReload=/bin/kill -HUP $MAINPID
+KillSignal=SIGINT
+
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,7 @@
+# file: roles/swarm/vars/main.yml
+---
+swarm_advertise_int: eth1
+swarm_advertise_port: 2375
+consul_ip: 172.17.0.1
+consul_port: 8500
+swarm_master_port: 2376

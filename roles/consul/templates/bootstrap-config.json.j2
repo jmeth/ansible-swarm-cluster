@@ -1,0 +1,16 @@
+{
+	"bootstrap": true,
+	"server": true,
+	"datacenter": "{{consul_datacenter}}",
+	"data_dir": "{{consul_data_dir}}",
+	"node_name": "{{ansible_fqdn}}",
+	"bind_addr": "{{ hostvars[inventory_hostname]['ansible_' + consul_bind_int]['ipv4']['address'] }}",
+	"log_level": "{{consul_log_level}}",
+	"ui_dir": "{{consul_ui_dir}}",
+	"addresses": {
+		"dns": "0.0.0.0",
+		"http": "0.0.0.0",
+		"rpc": "0.0.0.0"
+	},
+	"enable_syslog": {{consul_syslog}}
+}

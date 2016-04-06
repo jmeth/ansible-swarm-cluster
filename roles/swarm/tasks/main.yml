@@ -1,0 +1,16 @@
+# file: roles/swarm/tasks/main.yml
+---
+- name: Swarm Image
+  command: docker pull swarm
+
+- name: Swarm Agent service
+  template: src=swarm-agent.service.j2 dest=/usr/lib/systemd/system/swarm-agent.service
+  notify:
+    - reload systemd
+    - restart swarm-agent service
+
+- name: Swarm Master service
+  template: src=swarm-master.service.j2 dest=/usr/lib/systemd/system/swarm-master.service
+  notify:
+    - reload systemd
+    - restart swarm-master service

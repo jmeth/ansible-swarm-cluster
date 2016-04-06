@@ -1,0 +1,46 @@
+# file: roles/consul/tasks/main.yml
+---
+# add user and groups
+- name: Consul group
+  group: name={{consul_group}} state=present
+
+- name: Consul user
+  user: name={{consul_user}} group={{consul_group}}
+
+# make dirs
+- name: Consul config dirs
+  file: path={{item}} owner={{consul_user}} group={{consul_group}} mode=0755 state=directory
+  with_items:
+    - "{{consul_etc_dir}}/bootstrap"
+    - "{{consul_etc_dir}}/server"
+    - "{{consul_data_dir}}"
+    - "{{consul_ui_dir}}"
+
+# get binary
+- name: Get Consul binary
+  unarchive: "src={{consul_bin_url}} dest=/usr/local/bin owner=root mode=0755 copy=no creates=/usr/local/bin/consul"
+
+# get ui
+- name: Get Consul UI
+  unarchive: "src={{consul_ui_url}} dest={{consul_ui_dir}} owner={{consul_user}} group={{consul_group}} copy=no creates=/var/consul/ui/index.html"
+
+#add config
+- name: Consul Bootstrap config
+  template: src=bootstrap-config.json.j2 dest={{consul_etc_dir}}/bootstrap/config.json owner={{consul_user}} group={{consul_group}}
+  notify: restart consul service
+
+#add config
+- name: Consul Server config
+  template: src=server-config.json.j2 dest={{consul_etc_dir}}/server/config.json owner={{consul_user}} group={{consul_group}}
+  notify: restart consul service
+
+#add systemd
+- name: Docker Consul Options
+  template: src=docker-consul.sysconfig.j2 dest=/etc/sysconfig/docker-consul owner=root group=root mode=0644
+  notify: restart docker service
+
+- name: Consul service config
+  template: src=consul.service.j2 dest=/usr/lib/systemd/system/consul.service owner=root group=root mode=0644
+  notify:
+    - reload systemd
+    - restart consul service

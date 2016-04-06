@@ -1,0 +1,20 @@
+[Unit]
+Description=Docker Swarm Agent Service
+Documentation=https://docs.docker.com
+After=docker.service
+Requires=docker.service
+
+[Service]
+Restart=on-failure
+ExecStartPre=-/usr/bin/docker kill {{ansible_hostname}}-swarm-agent
+ExecStartPre=-/usr/bin/docker rm {{ansible_hostname}}-swarm-agent
+ExecStartPre=-/usr/bin/docker pull swarm
+ExecStart=/usr/bin/docker run \
+  --name {{ansible_hostname}}-swarm-agent \
+  swarm join \
+  --advertise={{ hostvars[inventory_hostname]['ansible_' + swarm_advertise_int]['ipv4']['address'] }}:2375 \
+  consul://{{bridge_ip}}:{{consul_port}}
+ExecStop=-/usr/bin/docker stop {{ansible_hostname}}-swarm-agent
+
+[Install]
+WantedBy=multi-user.target

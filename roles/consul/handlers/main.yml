@@ -1,0 +1,8 @@
+# file: roles/consul/handlers/main.yml
+---
+# For example,
+#
+# - name: restart ntpd
+#   service: name=ntpd state=restarted
+- name: restart consul service
+  service: name=consul state=restarted enabled=yes

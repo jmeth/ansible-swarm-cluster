@@ -1,0 +1,1 @@
+DOCKER_CONSUL_OPTS='--cluster-store="consul://127.0.0.1:8500" --cluster-advertise="{{ hostvars[inventory_hostname]['ansible_' + swarm_advertise_int]['ipv4']['address'] }}:2375"'

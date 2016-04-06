@@ -1,0 +1,18 @@
+# file: roles/consul/defaults/main.yml
+---
+#
+# foo: default
+consul_role: "server"
+consul_bootstrap: "false"
+consul_user: "consul"
+consul_group: "consul"
+consul_data_dir: "/var/consul/data"
+consul_ui_dir: "/var/consul/ui"
+consul_etc_dir: "/etc/consul.d"
+consul_log_level: "INFO"
+consul_bin_url: "https://releases.hashicorp.com/consul/0.6.4/consul_0.6.4_linux_amd64.zip"
+consul_ui_url: "https://releases.hashicorp.com/consul/0.6.4/consul_0.6.4_web_ui.zip"
+consul_bind_int: "eth1"
+consul_syslog: "true"
+consul_datacenter: docker
+consul_server: "true"

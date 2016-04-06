@@ -1,0 +1,7 @@
+# file: roles/swarm/handlers/main.yml
+---
+- name: restart swarm-agent service
+  service: name=swarm-agent.service state=restarted enabled=yes
+
+- name: restart swarm-master service
+  service: name=swarm-master.service state=restarted enabled=yes

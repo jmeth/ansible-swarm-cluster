@@ -1,0 +1,8 @@
+# file: roles/docker/vars/main.yml
+---
+#
+# foo: bar
+docker_url: https://get.docker.com/builds/Linux/x86_64/docker-1.9.1
+docker_group: docker
+docker_port: 2375
+bridge_ip: 172.17.0.1
